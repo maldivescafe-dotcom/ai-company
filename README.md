@@ -9,7 +9,7 @@ Claude Codeを起動した状態で、以下の2ステップを実行してく�
 
 **Step 1: マーケットプレイスを追加**
 ```
-/plugin marketplace add pontarou-re/ai-company
+/plugin marketplace add maldivescafe-dotcom/ai-company
 ```
 
 **Step 2: プラグインをインストール**
