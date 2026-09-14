@@ -4,14 +4,14 @@
     "name": "maldivescafe-dotcom"
   },
   "metadata": {
-    "description": "AI仮想カンパニー + AI buddy — 寄り添う相手と、秘書+リサーチ+レビューのPDCAで業務を回すプラグイン"
+    "description": "花のバディ（Hana's Buddy）— 寄り添う相手(AI buddy)と、秘書+リサーチ+レビューのPDCAで業務を回すプラグイン"
   },
   "plugins": [
     {
       "name": "company",
       "source": "./plugins/company",
-      "description": "AI buddy（寄り添う相手）を備えた仮想カンパニースキル。今日の調子・事後フォロー・人の記憶・大切にしていること。秘書室+リサーチ+レビューのPDCA、業種別テンプレート付き。",
-      "version": "1.1.0",
+      "description": "花のバディ（Hana's Buddy）。AI buddy（寄り添う相手: 今日の調子・事後フォロー・人の記憶・大切にしていること・量の見守り）を備えた仮想カンパニースキル。秘書室+リサーチ+レビューのPDCA、業種別テンプレート付き。",
+      "version": "1.1.1",
       "author": {
         "name": "maldivescafe-dotcom"
       },

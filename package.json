@@ -1,7 +1,7 @@
 {
   "name": "ai-company",
-  "version": "1.1.0",
-  "description": "AI仮想カンパニー + AI buddy — 寄り添う相手と、秘書+リサーチ+レビューのPDCAで業務を回すClaude Codeプラグイン",
+  "version": "1.1.1",
+  "description": "花のバディ（Hana's Buddy）— 寄り添う相手(AI buddy)と、秘書+リサーチ+レビューのPDCAで業務を回すClaude Codeプラグイン",
   "main": "index.js",
   "repository": {
     "type": "git",
