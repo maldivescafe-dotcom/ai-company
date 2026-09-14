@@ -1,16 +1,16 @@
 {
   "name": "ai-company",
-  "version": "1.0.0",
-  "description": "AI仮想カンパニー — 秘書+リサーチ+レビューのPDCAで業務を回すClaude Codeプラグイン",
+  "version": "1.1.0",
+  "description": "AI仮想カンパニー + AI buddy — 寄り添う相手と、秘書+リサーチ+レビューのPDCAで業務を回すClaude Codeプラグイン",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pontarou-re/ai-company.git"
+    "url": "git+https://github.com/maldivescafe-dotcom/ai-company.git"
   },
-  "author": "pontarou-re",
+  "author": "maldivescafe-dotcom (based on pontarou-re/ai-company, Shin-sibainu/cc-company)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pontarou-re/ai-company/issues"
+    "url": "https://github.com/maldivescafe-dotcom/ai-company/issues"
   },
-  "homepage": "https://github.com/pontarou-re/ai-company#readme"
+  "homepage": "https://github.com/maldivescafe-dotcom/ai-company#readme"
 }

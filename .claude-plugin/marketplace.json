@@ -1,24 +1,33 @@
 {
   "name": "ai-company",
   "owner": {
-    "name": "pontarou-re"
+    "name": "maldivescafe-dotcom"
   },
   "metadata": {
-    "description": "AI仮想カンパニー — 秘書+リサーチ+レビューのPDCAで業務を回すプラグイン"
+    "description": "AI仮想カンパニー + AI buddy — 寄り添う相手と、秘書+リサーチ+レビューのPDCAで業務を回すプラグイン"
   },
   "plugins": [
     {
       "name": "company",
       "source": "./plugins/company",
-      "description": "AI仮想カンパニースキル。秘書室+リサーチ部門+レビュー部門のPDCAサイクルで、1人で組織的に業務を回す。業種別テンプレート付き。",
-      "version": "1.0.0",
+      "description": "AI buddy（寄り添う相手）を備えた仮想カンパニースキル。今日の調子・事後フォロー・人の記憶・大切にしていること。秘書室+リサーチ+レビューのPDCA、業種別テンプレート付き。",
+      "version": "1.1.0",
       "author": {
-        "name": "pontarou-re"
+        "name": "maldivescafe-dotcom"
       },
-      "repository": "https://github.com/pontarou-re/ai-company",
+      "repository": "https://github.com/maldivescafe-dotcom/ai-company",
       "license": "MIT",
       "category": "productivity",
-      "tags": ["company", "organization", "secretary", "research", "review", "pdca", "productivity"]
+      "tags": [
+        "company",
+        "organization",
+        "secretary",
+        "buddy",
+        "research",
+        "review",
+        "pdca",
+        "productivity"
+      ]
     }
   ]
 }
