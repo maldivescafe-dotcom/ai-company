@@ -20,7 +20,19 @@ Claude Code上に仮想組織を構築し、秘書が窓口となって業務を
 
 ## インストール
 
-Claude Codeを起動した状態で、以下の2ステップを実行してください。
+### いちばん簡単な方法（おすすめ）
+
+Claude Code の入力欄に、この1文を貼って送ってください。Claude がこのページを読んで、必要な手順を全部やります。デスクトップアプリでもターミナルでも同じです。
+
+```
+https://github.com/maldivescafe-dotcom/ai-company の README を読んで、その通りに「花のバディ」を入れてください。
+```
+
+うまくいかないときは、エラーの文をそのまま Claude に貼って「どうすればいい？」と聞いてください。
+
+### ターミナル版で手で入れる場合
+
+Claude Code を起動した状態で、以下を1行ずつ実行してください（デスクトップアプリでは動かないことがあります）。
 
 **Step 1: マーケットプレイスを追加**
 ```
@@ -31,6 +43,13 @@ Claude Codeを起動した状態で、以下の2ステップを実行してく�
 ```
 /plugin install company@ai-company
 ```
+
+### Claude 向けの手順（上の1文で読みに来た Claude へ）
+
+1. `claude plugin marketplace add maldivescafe-dotcom/ai-company` を実行する（すでに `ai-company` という名前のマーケットプレイスが登録されていて別のリポジトリを指している場合は、先に `claude plugin marketplace remove ai-company` してから追加する）
+2. `claude plugin install company@ai-company` を実行する
+3. `claude plugin list` で `company@ai-company` が enabled になっていることを確認する
+4. ユーザーに「次に `/company` と打つと buddy が話しかけてきます」と伝える。既存の `.company/` フォルダはそのまま使える
 
 ## クイックスタート
 
