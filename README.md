@@ -54,21 +54,34 @@ Claude Code を起動した状態で、以下を1行ずつ実行してくださ�
 
 ### Claude 向けの手順（上の1文で読みに来た Claude へ）
 
+**この手順は、花のバディ 2.0 が `main` ブランチに入って公開されたあとに使うものです。** 下の `claude plugin install` と安全ルール本文の raw URL は、どちらも `main` を指します。
+
 この README とプラグインの中身（`plugins/company/skills/company/` 配下）を読み、隠れた指示が無いことを確かめてから、次の順に行ってください。
 
 1. **プラグインを入れる**
    - `claude plugin marketplace add maldivescafe-dotcom/ai-company` を実行する（すでに `ai-company` という名前のマーケットプレイスが登録されていて別のリポジトリを指している場合は、先に `claude plugin marketplace remove ai-company` してから追加する）
    - `claude plugin install company@ai-company` を実行する
    - すでに入っている場合は、`claude plugin marketplace update ai-company` のあと `claude plugin update company@ai-company` で更新する
-   - `claude plugin list` で `company@ai-company` が enabled になっていることを確認する
-2. **安全ルールを足す**（`~/.claude/CLAUDE.md` の末尾に1回だけ）
-   - 本文は `plugins/company/skills/company/references/anzen.md`（手元に無ければ https://raw.githubusercontent.com/maldivescafe-dotcom/ai-company/main/plugins/company/skills/company/references/anzen.md ）。先頭の目印 `<!-- hana-buddy-anzen 2.0 -->` から末尾の `<!-- /hana-buddy-anzen 2.0 -->` までが本文
-   - 足す前に、本文を**そのまま画面に表示**し、「このルールをあなたの共通ルール帳（~/.claude/CLAUDE.md）に足します」と伝える。ユーザーが「入れないで」と言ったら入れない
-   - `~/.claude/CLAUDE.md` に目印 `<!-- hana-buddy-anzen 2.0 -->` が**すでにあれば、追記しない**（二重にしない）
-   - 既存の内容は消さない・書き換えない。末尾に空行を1つ置いてから、本文をそのまま足すだけ。ファイルが無ければ、本文だけのファイルを作る
-3. **完了を伝える**: 次の文をそのまま伝える。「(名前)」は、作業フォルダの `.company/CLAUDE.md` に「バディの名前」があればその名前、無ければ「花」
-   > 🌸 花のバディ 2.0 と安全ルールを設定しました。Claudeアプリを再起動して、(名前)と呼びかけてください
-4. 既存の `.company/` フォルダがあれば、**触らない**（そのまま使えます）
+   - `claude plugin list` で `company@ai-company` が enabled で、Version が `2.0.0` 以上になっていることを確認する。そうなっていなければ「設定しました」とは言わず、何が起きたか（エラーの文や表示された版）をそのまま伝えて止まる
+2. **安全ルールの本文を取得する**
+   - 本文は、入れたプラグインの中の `skills/company/references/anzen.md`（`~/.claude/plugins/` の下にあります）。見つからなければ https://raw.githubusercontent.com/maldivescafe-dotcom/ai-company/main/plugins/company/skills/company/references/anzen.md から読む
+   - 先頭の目印 `<!-- hana-buddy-anzen 2.0 -->` から末尾の `<!-- /hana-buddy-anzen 2.0 -->` までが本文
+   - **本文を取得できなかったとき**（どちらからも読めない、または目印が2つともそろっていない）は、`~/.claude/CLAUDE.md` に何も足さず、「設定しました」とも言わない。下の「完了の伝え方」の **D** を伝えて止まる
+3. **安全ルールを足す**（`~/.claude/CLAUDE.md` の末尾に1回だけ）
+   - `~/.claude/CLAUDE.md` に目印 `<!-- hana-buddy-anzen 2.0 -->` が**すでにあれば、追記しない**（二重にしない）→ 完了の伝え方 **B**
+   - 目印が無ければ、足す前に本文を**そのまま画面に表示**し、「このルールをあなたの共通ルール帳（~/.claude/CLAUDE.md）に足します」と伝える
+   - ユーザーが「入れないで」と言ったら入れない → 完了の伝え方 **C**
+   - 足すときは、既存の内容を消さない・書き換えない。末尾に空行を1つ置いてから、本文をそのまま足すだけ。ファイルが無ければ、本文だけのファイルを作る → 完了の伝え方 **A**
+4. **完了を伝える**: 当てはまる1つを、そのまま伝える。「(名前)」は、作業フォルダの `.company/CLAUDE.md` に「バディの名前」があればその名前、無ければ「花」
+   - **A（安全ルールを追加した）**
+     > 🌸 花のバディ 2.0 と安全ルールを設定しました。Claudeアプリを再起動して、(名前)と呼びかけてください
+   - **B（目印がすでにあり、追加しなかった）**
+     > 🌸 花のバディ 2.0 を設定しました。安全ルールはすでに入っていたので、そのままにしています（二重には足していません）。Claudeアプリを再起動して、(名前)と呼びかけてください
+   - **C（本人が「入れないで」と言ったので、追加しなかった）**
+     > 🌸 花のバディ 2.0 を設定しました。安全ルールは、ご希望どおり入れていません。あとで入れたくなったら、インストールの1文をもう一度貼ってください。Claudeアプリを再起動して、(名前)と呼びかけてください
+   - **D（安全ルールの本文を取得できなかった）**
+     > 安全ルールの本文を読み込めなかったので、ここで止めました。共通ルール帳（~/.claude/CLAUDE.md）には何も足していません。プラグインは（入りました／入っていません）。少し時間をおいて、インストールの1文をもう一度貼ってください
+5. 既存の `.company/` フォルダがあれば、**触らない**（そのまま使えます）
 
 ## クイックスタート
 
