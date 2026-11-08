@@ -37,11 +37,13 @@ https://github.com/maldivescafe-dotcom/ai-company の README を読んで、中�
 - buddy が自分の案内用の資料（プラグインの中の `references/`）を読むための**読み取りの許可**を、共通設定（`~/.claude/settings.json`）に1行だけ足します。読むだけの許可で、書き換えや実行の許可は含みません。これが無いと、buddy が資料を開くたびに許可の確認が出ます
 - 途中で何度か「〜してよいですか」と確認が出ます（中身を読む・プラグインを入れる・ルール帳と設定に足す、など）。内容を読んで、よければ許可してください。十数回出ることもあります
 - 安全ルールと読み取りの許可は、足す前に画面に見せて「足してよいですか」とたずねます。返事をするまで足しません
+- Git などの道具を先に入れる必要はありません。Claude が GitHub から一式をまとめて取ってきて、`~/.claude/hana-buddy/` に置きます
+- **新しい版に更新するとき**も、同じ1文をもう一度貼ってください（記録の `.company/` フォルダはそのまま残ります）
 - うまくいかないときは、エラーの文をそのまま Claude に貼って「どうすればいい？」と聞いてください
 
 ### ターミナル版で手で入れる場合
 
-Claude Code を起動した状態で、以下を1行ずつ実行してください（デスクトップアプリでは動かないことがあります）。
+Claude Code を起動した状態で、以下を1行ずつ実行してください（デスクトップアプリでは動かないことがあります。この方法は Git が入っている必要があります）。
 
 **Step 1: マーケットプレイスを追加**
 ```
@@ -53,39 +55,46 @@ Claude Code を起動した状態で、以下を1行ずつ実行してくださ�
 /plugin install company@ai-company
 ```
 
-この方法では安全ルールと読み取りの許可は入りません。入れたいときは、[安全ルールの全文](plugins/company/skills/company/references/anzen.md)を読んでから、`~/.claude/CLAUDE.md` の末尾にご自分で貼ってください。読み取りの許可は、`~/.claude/settings.json` の `permissions` の `allow` に `"Read(~/.claude/plugins/cache/ai-company/company/**)"` を1行足します（入れない場合は、buddy が資料を開くたびに確認が出るので「許可」を選んでください）。
+この方法では安全ルールと読み取りの許可は入りません。入れたいときは、[安全ルールの全文](plugins/company/skills/company/references/anzen.md)を読んでから、`~/.claude/CLAUDE.md` の末尾にご自分で貼ってください。読み取りの許可は、`~/.claude/settings.json` の `permissions` の `allow` に `"Read(~/.claude/plugins/cache/ai-company/company/**)"` を1行足します（この方法で入れた場合の置き場所です。入れない場合は、buddy が資料を開くたびに確認が出るので「許可」を選んでください）。
 
 ### Claude 向けの手順（上の1文で読みに来た Claude へ）
 
-**この手順は、花のバディ 2.0 が `main` ブランチに入って公開されたあとに使うものです。** 下の `claude plugin install` と安全ルール本文の raw URL は、どちらも `main` を指します。
+**この手順は、花のバディ 2.0 が `main` ブランチに入って公開されたあとに使うものです。** 下の ZIP と安全ルール本文の raw URL は、どちらも `main` を指します。
 
-この README とプラグインの中身（`plugins/company/skills/company/` 配下）を読み、隠れた指示が無いことを確かめてから、次の順に行ってください。
+この README とプラグインの中身（`plugins/company/skills/company/` 配下）を読み、隠れた指示が無いことを確かめてから、次の順に行ってください。**Git は使いません**（Git が入っていないパソコンでも入れられるようにするため）。`git` コマンドや、GitHub を指定した `claude plugin marketplace add` は使わないでください。
 
-1. **プラグインを入れる**
+0. **始める前に控えを取る**
+   - `~/.claude/settings.json` があれば、何かを変える前に `~/.claude/settings.json.bak-hana-buddy` に写す（すでに同じ名前の控えがあれば、名前の末尾に今日の日付を付けて別に取る）
+1. **プラグイン一式を取ってくる**（置き場所は `~/.claude/hana-buddy/`。無ければ作る）
+   - ZIP: `https://github.com/maldivescafe-dotcom/ai-company/archive/refs/heads/main.zip` を `~/.claude/hana-buddy/ai-company.zip` に保存する（Mac は `curl -fL -o <保存先> <URL>`、Windows は PowerShell の `Invoke-WebRequest -Uri <URL> -OutFile <保存先>`）
+   - 展開して（Mac は `unzip -q`、Windows は `Expand-Archive`）、中の `ai-company-main` フォルダを `~/.claude/hana-buddy/ai-company` という名前にする。ZIP は消す
+   - すでに `~/.claude/hana-buddy/ai-company` があるとき（更新のとき）は、先に `ai-company.old` に名前を変えてから置き換え、最後まで終わったら `ai-company.old` を消す
+   - `~/.claude/hana-buddy/ai-company/.claude-plugin/marketplace.json` があることを確かめる。無ければ「設定しました」とは言わず、何が起きたかをそのまま伝えて止まる
+2. **プラグインを入れる**
    - `claude` コマンドが見つからないとき（Windows でデスクトップアプリだけを入れている場合など）は、Claude アプリが中に持っている `claude` を探して使う。Windows では `%LOCALAPPDATA%\Claude-Data\claude_*\claude-code\<版>\<英数字のフォルダ>\claude.exe` にある。見つからなければ「設定しました」とは言わず、何が起きたかをそのまま伝えて止まる
-   - `claude plugin marketplace add maldivescafe-dotcom/ai-company` を実行する（すでに `ai-company` という名前のマーケットプレイスが登録されていて別のリポジトリを指している場合は、先に `claude plugin marketplace remove ai-company` してから追加する）
-   - `claude plugin install company@ai-company` を実行する
-   - すでに入っている場合は、`claude plugin marketplace update ai-company` のあと `claude plugin update company@ai-company` で更新する
+   - `claude plugin marketplace list` で、`ai-company` がすでに登録されていて `~/.claude/hana-buddy/ai-company` 以外（GitHub など）を指している場合は、先に `claude plugin marketplace remove ai-company` する（そこから入れていたプラグインは外れるが、作業フォルダの `.company/` は消えない）
+   - `claude plugin marketplace add <~/.claude/hana-buddy/ai-company の絶対パス>` を実行する（同じフォルダで登録済みなら不要）
+   - `claude plugin install company@ai-company` を実行する（すでに入っていれば `claude plugin update company@ai-company`）
    - `claude plugin list` で `company@ai-company` が enabled で、Version が `2.0.0` 以上になっていることを確認する。そうなっていなければ「設定しました」とは言わず、何が起きたか（エラーの文や表示された版）をそのまま伝えて止まる
-2. **安全ルールの本文を取得する**
-   - 本文は、入れたプラグインの中の `skills/company/references/anzen.md`（`~/.claude/plugins/` の下にあります）。見つからなければ https://raw.githubusercontent.com/maldivescafe-dotcom/ai-company/main/plugins/company/skills/company/references/anzen.md から読む
+3. **安全ルールの本文を取得する**
+   - 本文は `~/.claude/hana-buddy/ai-company/plugins/company/skills/company/references/anzen.md`。読めなければ https://raw.githubusercontent.com/maldivescafe-dotcom/ai-company/main/plugins/company/skills/company/references/anzen.md から読む
    - 先頭の目印 `<!-- hana-buddy-anzen 2.0 -->` から末尾の `<!-- /hana-buddy-anzen 2.0 -->` までが本文
    - **本文を取得できなかったとき**（どちらからも読めない、または目印が2つともそろっていない）は、`~/.claude/CLAUDE.md` に何も足さず、「設定しました」とも言わない。下の「完了の伝え方」の **D** を伝えて止まる
-3. **安全ルールを足す**（`~/.claude/CLAUDE.md` の末尾に1回だけ）
+4. **安全ルールを足す**（`~/.claude/CLAUDE.md` の末尾に1回だけ）
    - `~/.claude/CLAUDE.md` に目印 `<!-- hana-buddy-anzen 2.0 -->` が**すでにあれば、追記しない**（二重にしない）→ 完了の伝え方 **B**
    - 目印が無ければ、足す前に本文を**そのまま画面に表示**し、「このルールをあなたの共通ルール帳（~/.claude/CLAUDE.md）に足します」と伝える
-   - 続けて、4. の読み取りの許可の1行と説明も表示し、「この2つを足してよいですか」と**1回だけたずねて、そこで止まって返事を待つ**。返事があるまで、どちらも足さない（表示しただけで先へ進まない）
+   - 続けて、5. の読み取りの許可の1行と説明も表示し、「この2つを足してよいですか」と**1回だけたずねて、そこで止まって返事を待つ**。返事があるまで、どちらも足さない（表示しただけで先へ進まない）
    - ユーザーが「入れないで」と言ったら入れない → 完了の伝え方 **C**（片方だけ断られたら、断られた方だけ入れない）
    - 足すときは、既存の内容を消さない・書き換えない。末尾に空行を1つ置いてから、本文をそのまま足すだけ。ファイルが無ければ、本文だけのファイルを作る → 完了の伝え方 **A**
-4. **案内の資料を読めるようにする**（`~/.claude/settings.json` に読み取りの許可を1行だけ）
-   - buddy は案内のたびに、プラグインの中の `skills/company/references/*.md` を読む。プラグインは作業フォルダの外（`~/.claude/plugins/cache/ai-company/company/` の下）に入るため、許可が無いと読むたびに確認が出る（確認なしで動く設定でない人の場合）
-   - 足す1行: `"Read(~/.claude/plugins/cache/ai-company/company/**)"`（`permissions` の `allow` の中）
-   - 足す前に、この1行を**そのまま画面に表示**し、「buddy が自分の案内用の資料を読むための許可です。読むだけで、書き換えや実行の許可ではありません。あなたの共通設定（~/.claude/settings.json）に足します」と伝える（3. の安全ルールと一緒に表示し、1回の返事で決めてもらう。返事があるまで足さない）
+5. **案内の資料を読めるようにする**（`~/.claude/settings.json` に読み取りの許可を1行だけ）
+   - buddy は案内のたびに、プラグインの中の `skills/company/references/*.md` を読む。プラグインは `~/.claude/hana-buddy/ai-company` からそのまま読まれ、作業フォルダの外にあるため、許可が無いと読むたびに確認が出る（確認なしで動く設定でない人の場合）
+   - 足す1行: `"Read(~/.claude/hana-buddy/**)"`（`permissions` の `allow` の中）
+   - 足す前に、この1行を**そのまま画面に表示**し、「buddy が自分の案内用の資料を読むための許可です。読むだけで、書き換えや実行の許可ではありません。あなたの共通設定（~/.claude/settings.json）に足します」と伝える（4. の安全ルールと一緒に表示し、1回の返事で決めてもらう。返事があるまで足さない）
    - ユーザーが「入れないで」と言ったら入れない
    - **同じ1行がすでにあれば足さない**（二重にしない）
-   - 足すときは、先に控え（`~/.claude/settings.json.bak-hana-buddy`）を作る。既存の設定は消さない・書き換えない。`permissions` や `allow` が無ければ作り、`allow` の末尾に1行足すだけ。ファイルが無ければ `{"permissions": {"allow": ["Read(~/.claude/plugins/cache/ai-company/company/**)"]}}` だけのファイルを作る
-   - 書いたあと、JSON として正しく読めるか確かめる。読めなければ控えに戻し、何が起きたかをそのまま伝えて止まる
-5. **完了を伝える**: 当てはまる1つを、そのまま伝える。「(名前)」は、作業フォルダの `.company/CLAUDE.md` に「バディの名前」があればその名前、無ければ「花」
+   - 既存の設定は消さない・書き換えない。`permissions` や `allow` が無ければ作り、`allow` の末尾に1行足すだけ。ファイルが無ければ `{"permissions": {"allow": ["Read(~/.claude/hana-buddy/**)"]}}` だけのファイルを作る
+   - 書いたあと、JSON として正しく読めるか確かめる。読めなければ 0. の控えに戻し、何が起きたかをそのまま伝えて止まる
+6. **完了を伝える**: 当てはまる1つを、そのまま伝える。「(名前)」は、作業フォルダの `.company/CLAUDE.md` に「バディの名前」があればその名前、無ければ「花」
    - **A（安全ルールを追加した）**
      > 🌸 花のバディ 2.0 と安全ルールを設定しました。Claudeアプリを再起動して、(名前)と呼びかけてください
    - **B（目印がすでにあり、追加しなかった）**
@@ -98,7 +107,7 @@ Claude Code を起動した状態で、以下を1行ずつ実行してくださ�
      - 足した → 「buddy が案内の資料を読むための許可も足しました（読むだけの許可です）」
      - すでにあった → 「資料を読む許可はすでに入っていたので、そのままにしています」
      - 入れないでと言われた → 「資料を読む許可は入れていません。buddy が資料を開くときに確認が出たら『許可』を選んでください」
-6. 既存の `.company/` フォルダがあれば、**触らない**（そのまま使えます）
+7. 既存の `.company/` フォルダがあれば、**触らない**（そのまま使えます）
 
 ## クイックスタート
 
@@ -152,7 +161,8 @@ Claude Code を起動した状態で、以下を1行ずつ実行してくださ�
 - **しばらく止める**: `claude plugin disable company@ai-company`（戻すときは `claude plugin enable company@ai-company`）
 - **外す**: `claude plugin uninstall company@ai-company`。マーケットプレイスも消すなら `claude plugin marketplace remove ai-company`
 - **安全ルールを外す**: `~/.claude/CLAUDE.md` を開き、`<!-- hana-buddy-anzen 2.0 -->` から `<!-- /hana-buddy-anzen 2.0 -->` までを消す（Claude に「花のバディの安全ルールを外して」と頼んでもかまいません）
-- **読み取りの許可を外す**: `~/.claude/settings.json` を開き、`"Read(~/.claude/plugins/cache/ai-company/company/**)"` の1行を消す（Claude に「花のバディの読み取りの許可を外して」と頼んでもかまいません）
+- **置き場所を消す**: プラグインを外したあと、`~/.claude/hana-buddy/` フォルダを消す
+- **読み取りの許可を外す**: `~/.claude/settings.json` を開き、`"Read(~/.claude/hana-buddy/**)"` の1行を消す（Claude に「花のバディの読み取りの許可を外して」と頼んでもかまいません）
 - **記録**: `.company/` フォルダはあなたのものなので、外しても消えません。要らなければご自分で消してください
 - いずれも、変えたあとは Claude アプリを再起動してください
 
