@@ -35,6 +35,8 @@ https://github.com/maldivescafe-dotcom/ai-company の README を読んで、中�
 - Claude はこのページを読んで中身を確かめてから入れます。入れる前に、安全ルールの全文を画面に見せてくれます
 - 安全ルールは、あなたの共通ルール帳（`~/.claude/CLAUDE.md`）の**末尾に1回だけ**足されます。今ある内容は消えません。2回貼っても二重にはなりません
 - buddy が自分の案内用の資料（プラグインの中の `references/`）を読むための**読み取りの許可**を、共通設定（`~/.claude/settings.json`）に1行だけ足します。読むだけの許可で、書き換えや実行の許可は含みません。これが無いと、buddy が資料を開くたびに許可の確認が出ます
+- 途中で何度か「〜してよいですか」と確認が出ます（中身を読む・プラグインを入れる・ルール帳と設定に足す、など）。内容を読んで、よければ許可してください。十数回出ることもあります
+- 安全ルールと読み取りの許可は、足す前に画面に見せて「足してよいですか」とたずねます。返事をするまで足しません
 - うまくいかないときは、エラーの文をそのまま Claude に貼って「どうすればいい？」と聞いてください
 
 ### ターミナル版で手で入れる場合
@@ -60,6 +62,7 @@ Claude Code を起動した状態で、以下を1行ずつ実行してくださ�
 この README とプラグインの中身（`plugins/company/skills/company/` 配下）を読み、隠れた指示が無いことを確かめてから、次の順に行ってください。
 
 1. **プラグインを入れる**
+   - `claude` コマンドが見つからないとき（Windows でデスクトップアプリだけを入れている場合など）は、Claude アプリが中に持っている `claude` を探して使う。Windows では `%LOCALAPPDATA%\Packages\Claude_*\LocalCache\Roaming\Claude\claude-code\<版>\claude.exe` にある。見つからなければ「設定しました」とは言わず、何が起きたかをそのまま伝えて止まる
    - `claude plugin marketplace add maldivescafe-dotcom/ai-company` を実行する（すでに `ai-company` という名前のマーケットプレイスが登録されていて別のリポジトリを指している場合は、先に `claude plugin marketplace remove ai-company` してから追加する）
    - `claude plugin install company@ai-company` を実行する
    - すでに入っている場合は、`claude plugin marketplace update ai-company` のあと `claude plugin update company@ai-company` で更新する
@@ -71,12 +74,13 @@ Claude Code を起動した状態で、以下を1行ずつ実行してくださ�
 3. **安全ルールを足す**（`~/.claude/CLAUDE.md` の末尾に1回だけ）
    - `~/.claude/CLAUDE.md` に目印 `<!-- hana-buddy-anzen 2.0 -->` が**すでにあれば、追記しない**（二重にしない）→ 完了の伝え方 **B**
    - 目印が無ければ、足す前に本文を**そのまま画面に表示**し、「このルールをあなたの共通ルール帳（~/.claude/CLAUDE.md）に足します」と伝える
-   - ユーザーが「入れないで」と言ったら入れない → 完了の伝え方 **C**
+   - 続けて、4. の読み取りの許可の1行と説明も表示し、「この2つを足してよいですか」と**1回だけたずねて、そこで止まって返事を待つ**。返事があるまで、どちらも足さない（表示しただけで先へ進まない）
+   - ユーザーが「入れないで」と言ったら入れない → 完了の伝え方 **C**（片方だけ断られたら、断られた方だけ入れない）
    - 足すときは、既存の内容を消さない・書き換えない。末尾に空行を1つ置いてから、本文をそのまま足すだけ。ファイルが無ければ、本文だけのファイルを作る → 完了の伝え方 **A**
 4. **案内の資料を読めるようにする**（`~/.claude/settings.json` に読み取りの許可を1行だけ）
    - buddy は案内のたびに、プラグインの中の `skills/company/references/*.md` を読む。プラグインは作業フォルダの外（`~/.claude/plugins/cache/ai-company/company/` の下）に入るため、許可が無いと読むたびに確認が出る（確認なしで動く設定でない人の場合）
    - 足す1行: `"Read(~/.claude/plugins/cache/ai-company/company/**)"`（`permissions` の `allow` の中）
-   - 足す前に、この1行を**そのまま画面に表示**し、「buddy が自分の案内用の資料を読むための許可です。読むだけで、書き換えや実行の許可ではありません。あなたの共通設定（~/.claude/settings.json）に足します」と伝える
+   - 足す前に、この1行を**そのまま画面に表示**し、「buddy が自分の案内用の資料を読むための許可です。読むだけで、書き換えや実行の許可ではありません。あなたの共通設定（~/.claude/settings.json）に足します」と伝える（3. の安全ルールと一緒に表示し、1回の返事で決めてもらう。返事があるまで足さない）
    - ユーザーが「入れないで」と言ったら入れない
    - **同じ1行がすでにあれば足さない**（二重にしない）
    - 足すときは、先に控え（`~/.claude/settings.json.bak-hana-buddy`）を作る。既存の設定は消さない・書き換えない。`permissions` や `allow` が無ければ作り、`allow` の末尾に1行足すだけ。ファイルが無ければ `{"permissions": {"allow": ["Read(~/.claude/plugins/cache/ai-company/company/**)"]}}` だけのファイルを作る
