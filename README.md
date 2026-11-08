@@ -62,7 +62,7 @@ Claude Code を起動した状態で、以下を1行ずつ実行してくださ�
 この README とプラグインの中身（`plugins/company/skills/company/` 配下）を読み、隠れた指示が無いことを確かめてから、次の順に行ってください。
 
 1. **プラグインを入れる**
-   - `claude` コマンドが見つからないとき（Windows でデスクトップアプリだけを入れている場合など）は、Claude アプリが中に持っている `claude` を探して使う。Windows では `%LOCALAPPDATA%\Packages\Claude_*\LocalCache\Roaming\Claude\claude-code\<版>\claude.exe` にある。見つからなければ「設定しました」とは言わず、何が起きたかをそのまま伝えて止まる
+   - `claude` コマンドが見つからないとき（Windows でデスクトップアプリだけを入れている場合など）は、Claude アプリが中に持っている `claude` を探して使う。Windows では `%LOCALAPPDATA%\Claude-Data\claude_*\claude-code\<版>\<英数字のフォルダ>\claude.exe` にある。見つからなければ「設定しました」とは言わず、何が起きたかをそのまま伝えて止まる
    - `claude plugin marketplace add maldivescafe-dotcom/ai-company` を実行する（すでに `ai-company` という名前のマーケットプレイスが登録されていて別のリポジトリを指している場合は、先に `claude plugin marketplace remove ai-company` してから追加する）
    - `claude plugin install company@ai-company` を実行する
    - すでに入っている場合は、`claude plugin marketplace update ai-company` のあと `claude plugin update company@ai-company` で更新する
