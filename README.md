@@ -71,7 +71,7 @@ Claude Code を起動した状態で、以下を1行ずつ実行してくださ�
    - すでに `~/.claude/hana-buddy/ai-company` があるとき（更新のとき）は、先に `ai-company.old` に名前を変えてから置き換え、最後まで終わったら `ai-company.old` を消す
    - `~/.claude/hana-buddy/ai-company/.claude-plugin/marketplace.json` があることを確かめる。無ければ「設定しました」とは言わず、何が起きたかをそのまま伝えて止まる
 2. **プラグインを入れる**
-   - `claude` コマンドが見つからないとき（Windows でデスクトップアプリだけを入れている場合など）は、Claude アプリが中に持っている `claude` を探して使う。Windows では `%LOCALAPPDATA%\Claude-Data\claude_*\claude-code\<版>\<英数字のフォルダ>\claude.exe` にある。見つからなければ「設定しました」とは言わず、何が起きたかをそのまま伝えて止まる
+   - `claude` コマンドが見つからないとき（Windows や Mac でデスクトップアプリだけを入れている場合など）は、Claude アプリが中に持っている `claude` を探して使う。Windows では `%LOCALAPPDATA%\Claude-Data\claude_*\claude-code\<版>\<英数字のフォルダ>\claude.exe`、Mac では `~/Library/Application Support/Claude/claude-code/<版>/<英数字のフォルダ>/claude.app/Contents/MacOS/claude` にある（版が複数あれば新しい方を使う）。見つからなければ「設定しました」とは言わず、何が起きたかをそのまま伝えて止まる
    - `claude plugin marketplace list` で、`ai-company` がすでに登録されていて `~/.claude/hana-buddy/ai-company` 以外（GitHub など）を指している場合は、先に `claude plugin marketplace remove ai-company` する（そこから入れていたプラグインは外れるが、作業フォルダの `.company/` は消えない）
    - `claude plugin marketplace add <~/.claude/hana-buddy/ai-company の絶対パス>` を実行する（同じフォルダで登録済みなら不要）
    - `claude plugin install company@ai-company` を実行する（すでに入っていれば `claude plugin update company@ai-company`）
