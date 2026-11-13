@@ -306,3 +306,6 @@ Claude Code を起動した状態で、以下を1行ずつ実行してくださ�
 Based on [ai-company](https://github.com/pontarou-re/ai-company) by pontarou-re (MIT License),
 which is based on [cc-company](https://github.com/Shin-sibainu/cc-company) by Shin-sibainu (MIT License).
 AI buddy 層は maldivescafe-dotcom による追加。
+
+2.0 の「はじめての人の案内役」は、Claude Code の勉強会を主催されている **とみさん** が作られた案内役の仕組みの、骨組みを参考にしました（ご本人の了承をいただいています）。文章・事例・リンクは自作です。
+公開前に、想定される質問をまとめて送って答えを確かめる方法も、とみさんの助言によるものです。ありがとうございます。
